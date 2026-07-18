@@ -6,11 +6,12 @@ export default function Footer({ navigate, t }) {
   const activeT = t?.nav ? t : (t?.HR || t?.IST || {});
 
   const navItems = [
-    { label: activeT.nav?.doma || "Početna",       page: "home" },
-    { label: activeT.nav?.kiSmoMi || "O nama",    page: "ki-smo-mi" },
-    { label: activeT.nav?.caNudimo || "Usluge",   page: "ca-nudimo" },
-    { label: activeT.nav?.nasaTrpeza || "Jelovnik", page: "nasa-trpeza" },
-    { label: activeT.nav?.kontakt || "Kontakt",    page: "kontakt" },
+    { label: activeT.nav?.doma || "Početna",                       page: "home" },
+    { label: activeT.nav?.kiSmoMi || "O nama",                     page: "ki-smo-mi" },
+    { label: activeT.nav?.caNudimo || "Usluge",                    page: "ca-nudimo" },
+    { label: activeT.nav?.nasaTrpeza || "Jelovnik",                page: "nasa-trpeza" },
+    { label: activeT.nav?.istarskiRecepti || "Istrijanski recepti", page: "istarski-recepti" },
+    { label: activeT.nav?.kontakt || "Kontakt",                    page: "kontakt" },
   ];
 
   return (

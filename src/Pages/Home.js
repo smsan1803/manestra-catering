@@ -1,26 +1,16 @@
 import { useState, useEffect } from "react";
+import slide1 from "../assets/images/vino_pogled.png";
+import slide2 from "../assets/images/tartufi.jpg";
+import slide3 from "../assets/images/istarska_supa.jpg";
+import slide4 from "../assets/images/istra_vinograd.jpeg";
+import slide5 from "../assets/images/kamena_kuca_tradicija.jpg";
 
 const heroSlides = [
-  {
-    img: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=85",
-    alt: "Istarska trpeza",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1600&q=85",
-    alt: "Istarska hrana",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1600&q=85",
-    alt: "Catering poslužavanje",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1600&q=85",
-    alt: "Vino i hrana",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1606914501449-5a96b6ce24ca?w=1600&q=85",
-    alt: "Svečani stol",
-  },
+  { img: slide1, alt: "Vino-pogled" },
+  { img: slide2, alt: "Tartufi" },
+  { img: slide3, alt: "Istarska supa" },
+  { img: slide4, alt: "Istra vinograd" },
+  { img: slide5, alt: "Kamena kuća tradicija" },
 ];
 
 export default function Home({ navigate, t }) {

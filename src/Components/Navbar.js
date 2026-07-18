@@ -1,4 +1,5 @@
 import { useState } from "react";
+import logoIcon from "../assets/images/logo-full.png";
 
 export default function Navbar({ currentPage, navigate, lang, setLang, t }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -8,6 +9,7 @@ export default function Navbar({ currentPage, navigate, lang, setLang, t }) {
     { label: t.nav.kiSmoMi,    page: "ki-smo-mi" },
     { label: t.nav.caNudimo,   page: "ca-nudimo" },
     { label: t.nav.nasaTrpeza, page: "nasa-trpeza" },
+    { label: t.nav.istarskiRecepti, page: "istarski-recepti" },
     { label: t.nav.kontakt,    page: "kontakt" },
   ];
 
@@ -18,13 +20,17 @@ export default function Navbar({ currentPage, navigate, lang, setLang, t }) {
 
   return (
     <nav className="navbar-custom">
-      <div className="container">
+      <div className="container-fluid px-3">
         <div className="d-flex justify-content-between align-items-center">
 
           {/* Brand */}
           <button className="navbar-brand-btn" onClick={() => handleNavigate("home")}>
-            <span className="brand-icon">M</span>
-            Maneštra Catering
+            <img
+              src={logoIcon}
+              alt="Maneštra Catering logo"
+              style={{ height: "45px", width: "auto" }}
+            />
+            
           </button>
 
           {/* Desktop nav */}

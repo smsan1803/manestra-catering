@@ -10,6 +10,17 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+#root {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 body {
   background-color: var(--bg-dark);
   color: var(--text-light);
@@ -122,7 +133,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(201, 168, 76, 0.15);
-  padding: 0.9rem 0;
+  padding: 0.75rem 1rem;
   transition: all 0.3s ease;
 }
 
@@ -137,7 +148,8 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
   align-items: center;
   gap: 0.6rem;
   padding: 0;
-  white-space: nowrap;
+  white-space: normal;
+  max-width: calc(100% - 60px);
 }
 
 .brand-icon {
@@ -195,21 +207,67 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 }
 .lang-btn:hover { color: var(--gold); opacity: 1; }
 
-.mobile-menu-dropdown {
-  background: rgba(15, 15, 15, 0.95);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border-radius: 12px;
-  border: 1px solid rgba(201, 168, 76, 0.1);
-  padding: 20px !important;
-  animation: fadeIn 0.25s ease-in-out;
+/* ========== HAMBURGER ========== */
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem;
+  z-index: 100;
+}
+
+.hamburger-line {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--gold);
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+/* ========== MOBILE NAV ========== */
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0 0.5rem;
+  border-top: 1px solid rgba(201,168,76,0.12);
+  margin-top: 0.75rem;
+  animation: fadeIn 0.2s ease;
+}
+
+.mobile-nav-link {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.7rem 0;
+  cursor: pointer;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: color 0.2s;
+}
+.mobile-nav-link:hover,
+.mobile-nav-link.active { color: var(--gold); }
+
+.mobile-lang {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem 0 0.25rem;
 }
 
 /* ========== HERO SLIDER ========== */
 .hero-slider {
   position: relative;
-  height: 92vh;
-  min-height: 550px;
+  height: 55vh;
+  min-height: 350px;
   overflow: hidden;
 }
 
@@ -341,18 +399,32 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
   bottom: 0;
   left: 0;
   right: 0;
-  height: 2px;
-  background: rgba(255,255,255,0.1);
+  height: 3px;
+  background: rgba(255,255,255,0.08);
   z-index: 4;
 }
 .slider-progress-bar {
   height: 100%;
-  background: var(--gold);
-  animation: progress 5s linear forwards;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(201,168,76,0.4) 20%,
+    var(--gold) 50%,
+    rgba(201,168,76,0.4) 80%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: progress 5s linear forwards, shimmer 1.5s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(201,168,76,0.6), 0 0 20px rgba(201,168,76,0.3);
 }
+
 @keyframes progress {
   from { width: 0%; }
   to   { width: 100%; }
+}
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 /* ========== SECTIONS ========== */
@@ -501,8 +573,6 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 }
 
 /* ========== ZLATNI RUB — SVE SLIKE OSIM HERO ========== */
-
-/* CaNudimo slike */
 .img-wrapper {
   position: relative;
   overflow: hidden;
@@ -519,7 +589,6 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 }
 .img-wrapper:hover img { transform: scale(1.04); }
 
-/* Home + KiSmoMi story slike */
 .story-img-wrapper {
   position: relative;
   overflow: hidden;
@@ -712,6 +781,22 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 select.form-control-custom option { background: #1a1a1a; color: var(--text-light); }
 textarea.form-control-custom { resize: vertical; min-height: 130px; }
 
+/* ========== WP CONTENT ========== */
+.wp-content {
+  color: var(--text-muted);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  max-width: 800px;
+}
+.wp-content p { margin-bottom: 1.25rem; color: var(--text-muted); }
+.wp-content h2 { color: var(--gold); font-size: 1.4rem; margin: 2rem 0 0.75rem; }
+.wp-content h3 { color: var(--gold); font-size: 1.1rem; margin: 1.5rem 0 0.5rem; }
+.wp-content ul, .wp-content ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+.wp-content li { color: var(--text-muted); margin-bottom: 0.4rem; }
+.wp-content a { color: var(--gold); text-decoration: none; }
+.wp-content a:hover { text-decoration: underline; }
+
 /* ========== FOOTER ========== */
 .footer {
   background-color: #070707;
@@ -772,131 +857,6 @@ textarea.form-control-custom { resize: vertical; min-height: 130px; }
   text-align: center;
 }
 .footer-bottom p { font-size: 0.78rem; color: #444; }
-
-/* ========== ANIMATIONS ========== */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ========== RESPONSIVE ========== */
-@media (max-width: 768px) {
-  .hero-slider { height: 85vh; }
-  .slider-arrow { width: 38px; height: 38px; font-size: 1.5rem; }
-  .slider-prev { left: 0.75rem; }
-  .slider-next { right: 0.75rem; }
-  .menu-categories { grid-template-columns: repeat(2, 1fr); }
-  .story-img-wrapper img { height: 280px; }
-}
-
-
-/* ========== HAMBURGER ========== */
-.hamburger-btn {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.4rem;
-  z-index: 100;
-}
-
-.hamburger-line {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background: var(--gold);
-  transition: all 0.3s ease;
-  transform-origin: center;
-}
-
-/* ========== MOBILE NAV ========== */
-.mobile-nav {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem 0 0.5rem;
-  border-top: 1px solid rgba(201,168,76,0.12);
-  margin-top: 0.75rem;
-  animation: fadeIn 0.2s ease;
-}
-
-.mobile-nav-link {
-  background: none;
-  border: none;
-  color: var(--text-muted);
-  font-family: 'Inter', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 0.7rem 0;
-  cursor: pointer;
-  text-align: left;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-  transition: color 0.2s;
-}
-.mobile-nav-link:hover,
-.mobile-nav-link.active {
-  color: var(--gold);
-}
-
-.mobile-lang {
-  display: flex;
-  gap: 0.5rem;
-  padding: 0.75rem 0 0.25rem;
-}
-
-/* ========== RESPONSIVE ========== */
-@media (max-width: 768px) {
-  /* Navbar */
-  .desktop-nav { display: none !important; }
-  .hamburger-btn { display: flex !important; }
-
-  /* Hero */
-  .hero-slider { height: 100svh; min-height: 500px; }
-  .hero-title { font-size: 2.4rem; }
-  .hero-subtitle { font-size: 2rem; }
-  .hero-desc { font-size: 0.88rem; max-width: 100%; }
-  .hero-content { padding: 2rem 0; }
-
-  /* Slider strelice */
-  .slider-arrow { width: 36px; height: 36px; font-size: 1.4rem; }
-  .slider-prev { left: 0.5rem; }
-  .slider-next { right: 0.5rem; }
-
-  /* Sekcije */
-  .section-pad { padding: 3rem 0; }
-
-  /* Story slike */
-  .story-img-wrapper img { height: 250px; }
-  .story-img-wrapper.sm img { height: 250px; }
-
-  /* Service row */
-  .img-wrapper img { height: 220px; }
-  .service-row { padding: 2rem 0; }
-
-  /* Menu grid */
-  .menu-categories { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
-
-  /* Kartice */
-  .uiverse-card-content img { height: 180px; }
-
-  /* Kontakt */
-  .contact-info-card { margin-bottom: 1rem; }
-
-  /* Footer */
-  .footer { padding: 2.5rem 0 1.5rem; }
-}
-
-@media (max-width: 480px) {
-  .hero-title { font-size: 1.9rem; }
-  .hero-subtitle { font-size: 1.6rem; }
-  .menu-categories { grid-template-columns: repeat(2, 1fr); }
-  .slider-dots { bottom: 1.5rem; }
-}
-
 
 /* ========== RECEPTI ========== */
 .recept-card {
@@ -1004,9 +964,8 @@ textarea.form-control-custom { resize: vertical; min-height: 130px; }
 .recept-ing li {
   color: var(--text-muted);
   font-size: 0.85rem;
-  padding: 0.2rem 0;
+  padding: 0.2rem 0 0.2rem 0.75rem;
   border-bottom: 1px solid rgba(255,255,255,0.04);
-  padding-left: 0.75rem;
   position: relative;
 }
 .recept-ing li::before {
@@ -1026,6 +985,237 @@ textarea.form-control-custom { resize: vertical; min-height: 130px; }
   line-height: 1.6;
   margin-bottom: 0.4rem;
 }
-.recept-steps li::marker {
+.recept-steps li::marker { color: var(--gold); }
+
+
+/* ---- RECEPT KARTICE (WP) ---- */
+.recept-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  animation: receptFadeUp 0.6s ease both;
+}
+.recept-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-5px);
+  box-shadow: 0 0 18px rgba(201, 168, 76, 0.35), 0 0 45px rgba(201, 168, 76, 0.15);
+}
+@keyframes receptFadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Fiksni, jednaki kontejner za sliku — kartice uvijek poravnate */
+.recept-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+.recept-card-body { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
+.recept-card-body h3 { color: var(--gold); font-size: 1.35rem; margin-bottom: 0.5rem; }
+.recept-desc { color: var(--text-muted); font-size: 0.9rem; line-height: 1.65; }
+
+.recept-meta {
+  display: flex; flex-wrap: wrap; gap: 1.5rem;
+  margin: 1rem 0 0.25rem;
   color: var(--gold);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+}
+.recept-meta svg { margin-right: 0.45rem; }
+
+.recept-toggle {
+  background: transparent; color: var(--gold);
+  border: 1px solid var(--gold); border-radius: 0;
+  font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.55rem 1.2rem; cursor: pointer;
+  margin-top: auto; align-self: flex-start;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  transition: all 0.25s ease;
+}
+.recept-toggle:hover { background: var(--gold); color: #000; }
+.recept-toggle svg { transition: transform 0.3s ease; }
+.recept-toggle.open svg { transform: rotate(180deg); }
+
+.recept-details { border-top: 1px solid var(--border-gold); margin-top: 1.25rem; padding-top: 1.25rem; }
+.recept-details h5 {
+  color: var(--gold);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+  margin-bottom: 0.6rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.recept-details ul, .recept-details ol {
+  color: var(--text-muted); font-size: 0.88rem; line-height: 1.7;
+  padding-left: 1.2rem; margin-bottom: 1.25rem;
+}
+
+/* ---- UNIVERZALNI ZLATNI GLOW — sve fotke na webu ---- */
+.service-card,
+.value-card,
+.menu-cat,
+.story-img-wrapper,
+.img-wrapper {
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.service-card:hover,
+.menu-cat:hover,
+.recept-card:hover {
+  box-shadow: 0 0 18px rgba(201, 168, 76, 0.35), 0 0 45px rgba(201, 168, 76, 0.15);
+}
+.service-row img,
+.story-img-wrapper img,
+.img-wrapper img,
+.uiverse-card-content img {
+  transition: box-shadow 0.3s ease;
+}
+.service-row img:hover,
+.story-img-wrapper img:hover,
+.img-wrapper img:hover,
+.uiverse-card-content img:hover {
+  box-shadow: 0 0 18px rgba(201, 168, 76, 0.35), 0 0 45px rgba(201, 168, 76, 0.15);
+}
+
+@media (max-width: 768px) {
+  .recept-card img { height: 240px; }
+}
+
+
+
+/* Porcije +/- */
+.porcije-control {
+  display: flex; align-items: center; gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  color: var(--gold);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+}
+.porcije-control button {
+  background: transparent; color: var(--gold);
+  border: 1px solid var(--gold); border-radius: 0;
+  width: 28px; height: 28px; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.porcije-control button:hover { background: var(--gold); color: #000; }
+.porcije-control strong { min-width: 2ch; text-align: center; font-size: 1rem; }
+
+.sastojci-sub {
+  list-style: none; margin-left: -1.2rem; margin-top: 0.6rem;
+  color: var(--gold); font-weight: 600;
+  font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+}
+.wake-btn.cooking { background: var(--gold); color: #000; }
+
+
+
+
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  /* Navbar */
+  .desktop-nav { display: none !important; }
+  .hamburger-btn { display: flex !important; }
+  .navbar-custom .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .navbar-brand-btn img { height: 30px; }
+
+  /* Hero */
+  .hero-slider { height: 55vh; min-height: 300px; }
+  .hero-title { font-size: 2.4rem; }
+  .hero-subtitle { font-size: 2rem; }
+  .hero-desc { font-size: 0.88rem; max-width: 100%; }
+  .hero-content { padding: 2rem 0; }
+
+  /* Slider */
+  .slider-arrow { width: 36px; height: 36px; font-size: 1.4rem; }
+  .slider-prev { left: 0.5rem; }
+  .slider-next { right: 0.5rem; }
+
+  /* Sekcije */
+  .section-pad { padding: 3rem 0; }
+
+  /* Slike */
+  .menu-categories { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+  .story-img-wrapper img { height: 250px; }
+  .story-img-wrapper.sm img { height: 250px; }
+  .img-wrapper img { height: 220px; }
+  .uiverse-card-content img { height: 180px; }
+
+  /* Ostalo */
+  .service-row { padding: 2rem 0; }
+  .contact-info-card { margin-bottom: 1rem; }
+  .footer { padding: 2.5rem 0 1.5rem; }
+}
+
+@media (max-width: 480px) {
+  .hero-title { font-size: 1.9rem; }
+  .hero-subtitle { font-size: 1.6rem; }
+  .menu-categories { grid-template-columns: repeat(2, 1fr); }
+  .slider-dots { bottom: 1.5rem; }
+}
+
+/* * {
+  outline: 1px solid red !important;
+} */
+
+.pravna-sub {
+  color: var(--gold);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+  margin: 2rem 0 0.6rem;
+}
+.pravna-p { color: var(--text-muted); font-size: 0.93rem; line-height: 1.75; }
+
+/* ---- COOKIE BANNER ---- */
+.cookie-banner {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 9998;
+  background: rgba(13, 13, 13, 0.97);
+  border-top: 1px solid var(--gold);
+  box-shadow: 0 -4px 24px rgba(201, 168, 76, 0.15);
+  padding: 1.1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  animation: cookieUp 0.45s ease;
+}
+@keyframes cookieUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+.cookie-text {
+  color: var(--text-muted);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  margin: 0;
+}
+.cookie-more {
+  background: none; border: none; padding: 0;
+  color: var(--gold); cursor: pointer;
+  font-family: 'Inter', sans-serif; font-size: 0.88rem;
+  text-decoration: underline;
+}
+.cookie-actions { display: flex; gap: 0.75rem; }
+.cookie-btn { padding: 0.55rem 1.4rem; font-size: 0.72rem; }
+@media (max-width: 768px) {
+  .cookie-banner { flex-direction: column; align-items: flex-start; }
 }
