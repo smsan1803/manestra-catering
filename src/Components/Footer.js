@@ -6,17 +6,18 @@ export default function Footer({ navigate, t }) {
   const activeT = t?.nav ? t : (t?.HR || t?.IST || {});
 
   const navItems = [
-    { label: activeT.nav?.doma || "Početna",                       page: "home" },
-    { label: activeT.nav?.kiSmoMi || "O nama",                     page: "ki-smo-mi" },
-    { label: activeT.nav?.caNudimo || "Usluge",                    page: "ca-nudimo" },
-    { label: activeT.nav?.nasaTrpeza || "Jelovnik",                page: "nasa-trpeza" },
+    { label: activeT.nav?.doma || "Početna",                        page: "home" },
+    { label: activeT.nav?.kiSmoMi || "O nama",                      page: "ki-smo-mi" },
+    { label: activeT.nav?.caNudimo || "Usluge",                     page: "ca-nudimo" },
+    { label: activeT.nav?.nasaTrpeza || "Jelovnik",                 page: "nasa-trpeza" },
     { label: activeT.nav?.istarskiRecepti || "Istrijanski recepti", page: "istarski-recepti" },
-    { label: activeT.nav?.kontakt || "Kontakt",                    page: "kontakt" },
+    { label: activeT.nav?.kontakt || "Kontakt",                     page: "kontakt" },
   ];
 
   return (
     <footer className="footer">
       <div className="container">
+
         <div className="row">
 
           <div className="col-md-4 mb-4 mb-md-0">
@@ -35,7 +36,11 @@ export default function Footer({ navigate, t }) {
           <div className="col-md-4 mb-4 mb-md-0">
             <h4>{activeT.footer?.navTitle || "Navigacija"}</h4>
             {navItems.map((item) => (
-              <button key={item.page} className="footer-link-btn border-0 bg-transparent" onClick={() => navigate(item.page)}>
+              <button
+                key={item.page}
+                className="footer-link-btn border-0 bg-transparent"
+                onClick={() => navigate(item.page)}
+              >
                 {item.label}
               </button>
             ))}
@@ -49,9 +54,20 @@ export default function Footer({ navigate, t }) {
           </div>
 
         </div>
+
         <div className="footer-bottom">
+          <p style={{ marginBottom: "0.5rem" }}>
+            <button
+              className="footer-link-btn border-0 bg-transparent"
+              style={{ display: "inline" }}
+              onClick={() => navigate("politika")}
+            >
+              {activeT.footer?.politika || "Politika privatnosti"}
+            </button>
+          </p>
           <p>{activeT.footer?.copyright || "© 2026 Izradila Sandra. Sva prava pridržana."}</p>
         </div>
+
       </div>
     </footer>
   );

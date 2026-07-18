@@ -1183,39 +1183,206 @@ textarea.form-control-custom { resize: vertical; min-height: 130px; }
 .pravna-p { color: var(--text-muted); font-size: 0.93rem; line-height: 1.75; }
 
 /* ---- COOKIE BANNER ---- */
+/* ---- COOKIE BANNER ---- */
 .cookie-banner {
   position: fixed;
-  bottom: 0; left: 0; right: 0;
+  bottom: 20px; /* Odignuto od dna */
+  left: 20px;   /* Odmaknuto od lijevog ruba */
   z-index: 9998;
   background: rgba(13, 13, 13, 0.97);
-  border-top: 1px solid var(--gold);
-  box-shadow: 0 -4px 24px rgba(201, 168, 76, 0.15);
-  padding: 1.1rem 1.5rem;
+  border: 1px solid var(--gold); /* Dodan tanki zlatni obrub sa svih strana */
+  border-radius: 8px; /* Zaobljeni rubovi */
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5); /* Jača sjena za "lebdeći" efekt */
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column; /* Tekst i gumbi će biti jedan ispod drugog zbog širine */
+  gap: 1rem;
+  max-width: 400px; /* Ograničena širina */
+  animation: cookieUp 0.45s ease;
+}
+
+@keyframes cookieUp {
+  from { transform: translateY(120%); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+/* ---- COOKIE BANNER ---- */
+/* ---- COOKIE BANNER ---- */
+.cookie-banner {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9998;
+  width: min(720px, calc(100% - 2rem));
+  background: rgba(16, 16, 16, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.55);
+  padding: 1.4rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  animation: cookieUp 0.45s ease;
+  gap: 2rem;
+  animation: cookieIn 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
-@keyframes cookieUp {
-  from { transform: translateY(100%); }
-  to   { transform: translateY(0); }
+.cookie-banner::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.7), transparent);
+}
+@keyframes cookieIn {
+  from { opacity: 0; transform: translate(-50%, 20px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+.cookie-content { flex: 1; }
+.cookie-title {
+  color: var(--gold);
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
 }
 .cookie-text {
   color: var(--text-muted);
   font-family: 'Inter', sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.84rem;
+  line-height: 1.55;
   margin: 0;
 }
 .cookie-more {
   background: none; border: none; padding: 0;
   color: var(--gold); cursor: pointer;
-  font-family: 'Inter', sans-serif; font-size: 0.88rem;
-  text-decoration: underline;
+  font-family: 'Inter', sans-serif; font-size: 0.84rem;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.4);
+  transition: border-color 0.2s;
 }
-.cookie-actions { display: flex; gap: 0.75rem; }
-.cookie-btn { padding: 0.55rem 1.4rem; font-size: 0.72rem; }
-@media (max-width: 768px) {
-  .cookie-banner { flex-direction: column; align-items: flex-start; }
+.cookie-more:hover { border-color: var(--gold); }
+.cookie-actions { display: flex; gap: 0.6rem; flex-shrink: 0; }
+.cookie-btn { padding: 0.6rem 1.5rem; font-size: 0.7rem; white-space: nowrap; }
+@media (max-width: 640px) {
+  .cookie-banner { flex-direction: column; align-items: stretch; gap: 1rem; padding: 1.4rem 1.5rem; }
+  .cookie-actions { width: 100%; }
+  .cookie-btn { flex: 1; text-align: center; }
+}
+
+
+/* ---- ELEGANTNI SLIDER PROGRESS ---- */
+.slider-progress {
+  height: 1px !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  overflow: hidden;
+}
+.slider-progress-bar {
+  height: 1px !important;
+  background: linear-gradient(90deg, rgba(201, 168, 76, 0.15), rgba(201, 168, 76, 0.85)) !important;
+  box-shadow: none !important;
+}
+
+
+/* ---- GLAMUR KONTAKT SEKCIJE ---- */
+
+/* Ista visina + glow na hover za obje kartice */
+.contact-info-card,
+.form-card {
+  height: 100%;
+  position: relative;
+  background: linear-gradient(165deg, #171717 0%, #101010 100%);
+  border: 1px solid var(--border-gold);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.contact-info-card:hover,
+.form-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+  box-shadow: 0 0 18px rgba(201, 168, 76, 0.35), 0 0 45px rgba(201, 168, 76, 0.15);
+}
+
+/* Zlatna nit na vrhu obje kartice */
+.contact-info-card::before,
+.form-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.8), transparent);
+}
+
+/* Naslovi kartica — zlatni, s malim podvlakom */
+.contact-info-card h3,
+.form-card h3 {
+  color: var(--gold);
+  position: relative;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+.contact-info-card h3::after,
+.form-card h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 40px; height: 2px;
+  background: var(--gold);
+}
+
+/* Polja — dublja, s mekim focus sjajem */
+.form-control-custom {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+}
+.form-control-custom:hover { border-color: rgba(201, 168, 76, 0.35); }
+.form-control-custom:focus {
+  border-color: var(--gold);
+  background: rgba(201, 168, 76, 0.04);
+  box-shadow: 0 0 12px rgba(201, 168, 76, 0.15);
+}
+
+/* Kontakt detalji — zlatna crtica ispred labela */
+.contact-detail .clabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.contact-detail .clabel::before {
+  content: "";
+  width: 14px; height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+
+/* ---- GLOW ZA KI SMO MI & ČA NUDIMO ---- */
+
+/* Value kartice (Naše vrijednosti) */
+.value-card {
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.value-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+  box-shadow: 0 0 18px rgba(201, 168, 76, 0.35), 0 0 45px rgba(201, 168, 76, 0.15);
+}
+
+/* SVE samostalne slike na stranicama (Ki smo mi, Ča nudimo, Home štorija...) */
+.section-pad img,
+.service-row img,
+.page-header img {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.section-pad img:hover,
+.service-row img:hover,
+.page-header img:hover {
+  box-shadow: 0 0 18px rgba(201, 168, 76, 0.35), 0 0 45px rgba(201, 168, 76, 0.15);
+  transform: translateY(-4px);
+}
+
+/* Iznimke: slike unutar kartica ne trebaju vlastiti glow (kartica ga već ima) */
+.service-card img:hover,
+.recept-card img:hover,
+.menu-cat img:hover {
+  box-shadow: none;
+  transform: none;
 }

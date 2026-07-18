@@ -43,7 +43,7 @@ export default function App() {
       case "nasa-trpeza":      return <NasaTrpeza navigate={navigate} t={t} />;
       case "kontakt":          return <Kontakt t={t} />;
       case "istarski-recepti": return <IstarskiRecepti t={t} lang={lang} />;
-      case "politika":         return <PravnaStranica slug="pravila-privatnosti" lang={lang} />;
+      case "politika":         return <PravnaStranica slug="politika-privatnosti" lang={lang} />;
       case "kolacici":         return <PravnaStranica slug="kolacici" lang={lang} />;
       default:                 return <Home navigate={navigate} t={t} />;
     }
@@ -60,9 +60,9 @@ export default function App() {
           height: "1px",
           width: `${scrollProgress}%`,
           background: "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.4) 20%, #C9A84C 50%, rgba(201,168,76,0.4) 80%, transparent 100%)",
-          boxShadow: "0 0 8px rgba(201,168,76,0.6), 0 0 20px rgba(201,168,76,0.3)",
+          boxShadow: "0 0 4px rgba(201,168,76,0.4)",
           zIndex: 9999,
-          transition: "width 0.9s ease",
+          transition: "width 0.1s ease-out",
         }}
       />
       <Navbar currentPage={currentPage} navigate={navigate} lang={lang} setLang={setLang} t={t} />

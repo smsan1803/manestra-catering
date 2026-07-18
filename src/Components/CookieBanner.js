@@ -2,19 +2,22 @@ import { useState, useEffect } from "react";
 
 const TEXTS = {
   IST: {
-    text: "Ova stranica koristi samo nužne tehničke kolačiće potribne za rad stranice.",
+    title: "Kolačići",
+    text: "Koristimo samo nužne tehničke kolačiće potribne za rad stranice.",
     more: "Više o kolačići",
     accept: "Prihvati",
     decline: "Odbij",
   },
   HR: {
-    text: "Ova stranica koristi samo nužne tehničke kolačiće potrebne za rad stranice.",
+    title: "Kolačići",
+    text: "Koristimo samo nužne tehničke kolačiće potrebne za rad stranice.",
     more: "Više o kolačićima",
     accept: "Prihvati",
     decline: "Odbij",
   },
   EN: {
-    text: "This site only uses essential technical cookies required for it to work.",
+    title: "Cookies",
+    text: "We only use essential technical cookies required for the site to work.",
     more: "More about cookies",
     accept: "Accept",
     decline: "Decline",
@@ -36,17 +39,17 @@ export default function CookieBanner({ lang = "IST", navigate }) {
 
   if (!visible) return null;
 
-  return (
+return (
     <div className="cookie-banner">
-      <p className="cookie-text">
-        {txt.text}{" "}
-        <button
-          className="cookie-more"
-          onClick={() => { navigate("kolacici"); }}
-        >
-          {txt.more}
-        </button>
-      </p>
+      <div className="cookie-content">
+        <p className="cookie-title">🍪 {txt.title}</p>
+        <p className="cookie-text">
+          {txt.text}{" "}
+          <button className="cookie-more" onClick={() => navigate("kolacici")}>
+            {txt.more}
+          </button>
+        </p>
+      </div>
       <div className="cookie-actions">
         <button className="btn-gold cookie-btn" onClick={() => choose("accepted")}>
           {txt.accept}
