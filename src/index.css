@@ -6,6 +6,7 @@
   --text-light: #E8E8E8;
   --text-muted: #888;
   --border-gold: rgba(201, 168, 76, 0.3);
+  --radius: 10px;   /* ⬅️ novi redak */
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1057,36 +1058,9 @@ textarea.form-control-custom { resize: vertical; min-height: 130px; }
   padding-left: 1.2rem; margin-bottom: 1.25rem;
 }
 
-/* ---- UNIVERZALNI ZLATNI GLOW — sve fotke na webu ---- */
-.service-card,
-.value-card,
-.menu-cat,
-.story-img-wrapper,
-.img-wrapper {
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-.service-card:hover,
-.menu-cat:hover,
-.recept-card:hover {
-  box-shadow: 0 0 18px rgba(201, 168, 76, 0.35), 0 0 45px rgba(201, 168, 76, 0.15);
-}
-.service-row img,
-.story-img-wrapper img,
-.img-wrapper img,
-.uiverse-card-content img {
-  transition: box-shadow 0.3s ease;
-}
-.service-row img:hover,
-.story-img-wrapper img:hover,
-.img-wrapper img:hover,
-.uiverse-card-content img:hover {
-  box-shadow: 0 0 18px rgba(201, 168, 76, 0.35), 0 0 45px rgba(201, 168, 76, 0.15);
-}
-
 @media (max-width: 768px) {
   .recept-card img { height: 240px; }
 }
-
 
 
 /* Porcije +/- */
@@ -1113,9 +1087,6 @@ textarea.form-control-custom { resize: vertical; min-height: 130px; }
   font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
 }
 .wake-btn.cooking { background: var(--gold); color: #000; }
-
-
-
 
 
 /* ========== ANIMATIONS ========== */
@@ -1170,9 +1141,6 @@ textarea.form-control-custom { resize: vertical; min-height: 130px; }
   .slider-dots { bottom: 1.5rem; }
 }
 
-/* * {
-  outline: 1px solid red !important;
-} */
 
 .pravna-sub {
   color: var(--gold);
@@ -1182,31 +1150,6 @@ textarea.form-control-custom { resize: vertical; min-height: 130px; }
 }
 .pravna-p { color: var(--text-muted); font-size: 0.93rem; line-height: 1.75; }
 
-/* ---- COOKIE BANNER ---- */
-/* ---- COOKIE BANNER ---- */
-.cookie-banner {
-  position: fixed;
-  bottom: 20px; /* Odignuto od dna */
-  left: 20px;   /* Odmaknuto od lijevog ruba */
-  z-index: 9998;
-  background: rgba(13, 13, 13, 0.97);
-  border: 1px solid var(--gold); /* Dodan tanki zlatni obrub sa svih strana */
-  border-radius: 8px; /* Zaobljeni rubovi */
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5); /* Jača sjena za "lebdeći" efekt */
-  padding: 1.2rem;
-  display: flex;
-  flex-direction: column; /* Tekst i gumbi će biti jedan ispod drugog zbog širine */
-  gap: 1rem;
-  max-width: 400px; /* Ograničena širina */
-  animation: cookieUp 0.45s ease;
-}
-
-@keyframes cookieUp {
-  from { transform: translateY(120%); opacity: 0; }
-  to   { transform: translateY(0); opacity: 1; }
-}
-
-/* ---- COOKIE BANNER ---- */
 /* ---- COOKIE BANNER ---- */
 .cookie-banner {
   position: fixed;
@@ -1353,36 +1296,392 @@ textarea.form-control-custom { resize: vertical; min-height: 130px; }
   flex-shrink: 0;
 }
 
-
-/* ---- GLOW ZA KI SMO MI & ČA NUDIMO ---- */
-
-/* Value kartice (Naše vrijednosti) */
-.value-card {
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+/* ==================================================
+   UNIVERZALNI ZLATNI GLOW (konsolidirano)
+   Glow ide na WRAPPERE/KARTICE — overflow:hidden na
+   omotacima rezao bi sjenu da je na slikama.
+   ================================================== */
+.story-img-wrapper,
+.img-wrapper,
+.uiverse-card,
+.value-card-modern,
+.menu-cat,
+.service-card,
+.recept-card,
+.contact-info-card,
+.form-card {
+  transition: transform 0.3s ease, border-color 0.35s ease, box-shadow 0.3s ease;
 }
-.value-card:hover {
+.story-img-wrapper:hover,
+.img-wrapper:hover,
+.uiverse-card:hover,
+.value-card-modern:hover,
+.menu-cat:hover,
+.service-card:hover,
+.recept-card:hover,
+.contact-info-card:hover,
+.form-card:hover {
   border-color: var(--gold);
-  transform: translateY(-4px);
   box-shadow: 0 0 18px rgba(201, 168, 76, 0.35), 0 0 45px rgba(201, 168, 76, 0.15);
 }
+.uiverse-card:hover,
+.value-card-modern:hover,
+.recept-card:hover,
+.contact-info-card:hover,
+.form-card:hover {
+  transform: translateY(-4px);
+}
 
-/* SVE samostalne slike na stranicama (Ki smo mi, Ča nudimo, Home štorija...) */
-.section-pad img,
+
+
+/* ==================================================
+   ELEGANTNI RADIJUS — slike, wrapperi i kartice
+   ================================================== */
+
+/* Omotači slika (radijus + overflow već režu sliku unutra) */
+.img-wrapper,
+.story-img-wrapper,
+.uiverse-card,
+.menu-cat,
+.recept-card,
+.value-card-modern,
+.contact-info-card,
+.form-card,
+.service-card {
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+/* Samostalne slike bez wrappera */
 .service-row img,
-.page-header img {
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-.section-pad img:hover,
-.service-row img:hover,
-.page-header img:hover {
-  box-shadow: 0 0 18px rgba(201, 168, 76, 0.35), 0 0 45px rgba(201, 168, 76, 0.15);
-  transform: translateY(-4px);
+.section-pad img {
+  border-radius: var(--radius);
 }
 
-/* Iznimke: slike unutar kartica ne trebaju vlastiti glow (kartica ga već ima) */
-.service-card img:hover,
-.recept-card img:hover,
-.menu-cat img:hover {
-  box-shadow: none;
-  transform: none;
+/* Sitniji radijus za sitne elemente — proporcionalnost */
+.form-control-custom,
+.recept-toggle,
+.porcije-control button,
+.btn-gold,
+.btn-outline-gold,
+.cookie-btn {
+  border-radius: 6px;
+}
+
+/* Cookie banner — malo izraženiji, jer je veći element */
+.cookie-banner {
+  border-radius: 14px;
+}
+
+
+/* ==================================================
+   TRPEZA — LINKOVI NA OSTALE KATEGORIJE
+   ================================================== */
+.trpeza-ostale {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin: 2.5rem 0 0.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+.trpeza-ostale-link {
+  background: transparent;
+  border: 1px solid var(--border-gold);
+  color: var(--gold);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.6rem 1.3rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.trpeza-ostale-link:hover {
+  border-color: var(--gold);
+  background: rgba(201, 168, 76, 0.08);
+  box-shadow: 0 0 14px rgba(201, 168, 76, 0.2);
+}
+
+
+
+/* ==================================================
+   LOADING ANIMACIJA — LONAC KI SE KRČKA (recepti)
+   ================================================== */
+.recepti-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 4rem 0;
+  animation: loaderFadeIn 0.4s ease;
+}
+@keyframes loaderFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.pot {
+  position: relative;
+  width: 90px;
+  height: 60px;
+}
+
+/* Tijelo lonca */
+.pot-body {
+  position: absolute;
+  bottom: 0;
+  width: 90px;
+  height: 44px;
+  border: 2px solid var(--gold);
+  border-top: none;
+  border-radius: 0 0 14px 14px;
+  background: linear-gradient(180deg, rgba(201,168,76,0.06), rgba(201,168,76,0.12));
+}
+/* Ručkice */
+.pot-body::before,
+.pot-body::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  width: 12px;
+  height: 8px;
+  border: 2px solid var(--gold);
+  border-radius: 0 0 6px 6px;
+  border-top: none;
+}
+.pot-body::before { left: -14px; }
+.pot-body::after  { right: -14px; }
+
+/* Poklopac ki poskakuje */
+.pot-lid {
+  position: absolute;
+  top: 6px;
+  left: 3px;
+  width: 84px;
+  height: 12px;
+  border: 2px solid var(--gold);
+  border-radius: 8px 8px 0 0;
+  background: var(--bg-dark);
+  animation: lidBounce 1.6s ease-in-out infinite;
+}
+/* Kuglica na poklopcu */
+.pot-lid::after {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 5px;
+  border: 2px solid var(--gold);
+  border-radius: 4px 4px 0 0;
+  border-bottom: none;
+}
+@keyframes lidBounce {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  12%      { transform: translateY(-4px) rotate(-2deg); }
+  24%      { transform: translateY(0) rotate(0deg); }
+  36%      { transform: translateY(-3px) rotate(1.5deg); }
+  48%      { transform: translateY(0) rotate(0deg); }
+}
+
+/* Para */
+.steam {
+  position: absolute;
+  bottom: 58px;
+  width: 3px;
+  height: 16px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, transparent, rgba(201, 168, 76, 0.7));
+  opacity: 0;
+  animation: steamRise 2s ease-out infinite;
+}
+.steam:nth-child(1) { left: 28px; animation-delay: 0s; }
+.steam:nth-child(2) { left: 44px; animation-delay: 0.6s; }
+.steam:nth-child(3) { left: 60px; animation-delay: 1.2s; }
+@keyframes steamRise {
+  0%   { opacity: 0; transform: translateY(6px) scaleY(0.6); }
+  30%  { opacity: 0.8; }
+  100% { opacity: 0; transform: translateY(-18px) scaleY(1.15); }
+}
+
+/* Tekst ispod */
+.recepti-loader p {
+  color: var(--text-muted);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0;
+  animation: loaderPulse 1.8s ease-in-out infinite;
+}
+@keyframes loaderPulse {
+  0%, 100% { opacity: 0.5; }
+  50%      { opacity: 1; }
+}
+
+
+/* ==================================================
+   GLAMUR MENI — "Iz ponude izdvajamo"
+   ================================================== */
+.gmenu-section {
+  max-width: 760px;
+  margin: 0 auto 4rem;
+}
+.gmenu-section:last-of-type { margin-bottom: 2rem; }
+
+/* Centrirani naslov kategorije s ornamentima */
+.gmenu-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-bottom: 2.25rem;
+}
+.gmenu-title span {
+  color: var(--gold);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.gmenu-title::before,
+.gmenu-title::after {
+  content: "";
+  height: 1px;
+  width: 90px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+.gmenu-title::after {
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+/* Jelo: ime ..... cijena, opis ispod */
+.gmenu-item { margin-bottom: 1.75rem; }
+.gmenu-item-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+.gmenu-item-head h5 {
+  color: var(--text-light);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.12rem;
+  margin: 0;
+  white-space: nowrap;
+}
+.gmenu-dots {
+  flex: 1;
+  border-bottom: 1px dotted rgba(201, 168, 76, 0.35);
+  transform: translateY(-4px);
+}
+.gmenu-price {
+  color: var(--gold);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.gmenu-item p {
+  color: var(--text-muted);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  margin: 0.35rem 0 0;
+  max-width: 85%;
+}
+
+/* Mali završni ornament nakon svega */
+.gmenu-end {
+  text-align: center;
+  color: var(--gold);
+  font-size: 0.8rem;
+  letter-spacing: 0.6em;
+  margin: 0 0 2rem;
+  opacity: 0.7;
+}
+
+@media (max-width: 576px) {
+  .gmenu-title::before, .gmenu-title::after { width: 40px; }
+  .gmenu-item p { max-width: 100%; }
+}
+
+
+/* ==================================================
+   GLAMUR PODSTRANICE KATEGORIJA — "meni karta"
+   glossy staklo + glow
+   ================================================== */
+.gmenu-karta {
+  position: relative;
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  border-radius: var(--radius);
+  padding: 3rem 3rem 2.25rem;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.045) 0%,
+    rgba(201, 168, 76, 0.04) 35%,
+    rgba(255, 255, 255, 0.012) 100%
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    0 0 22px rgba(201, 168, 76, 0.18),
+    0 0 60px rgba(201, 168, 76, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+.gmenu-karta:hover {
+  border-color: rgba(201, 168, 76, 0.65);
+  box-shadow:
+    0 0 28px rgba(201, 168, 76, 0.3),
+    0 0 80px rgba(201, 168, 76, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+/* Glossy odsjaj preko gornjeg dijela karte */
+.gmenu-karta::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 42%;
+  border-radius: var(--radius) var(--radius) 50% 50% / var(--radius) var(--radius) 24px 24px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent);
+  pointer-events: none;
+}
+/* Mali ornament na vrhu karte */
+.gmenu-karta::after {
+  content: "✦";
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--gold);
+  font-size: 0.8rem;
+  background: var(--bg-dark);
+  padding: 0 0.9rem;
+}
+
+/* Jela se elegantno pojavljuju jedno za drugim */
+.gmenu-karta .gmenu-item {
+  animation: gmenuFadeUp 0.5s ease both;
+}
+@keyframes gmenuFadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Suptilan hover — ime pozlati, točkice ožive */
+.gmenu-item-head h5 { transition: color 0.25s ease; }
+.gmenu-item:hover .gmenu-item-head h5 { color: var(--gold); }
+.gmenu-dots { transition: border-color 0.25s ease; }
+.gmenu-item:hover .gmenu-dots { border-color: rgba(201, 168, 76, 0.7); }
+
+@media (max-width: 576px) {
+  .gmenu-karta { padding: 2rem 1.25rem 1.5rem; }
 }

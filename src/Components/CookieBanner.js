@@ -5,6 +5,7 @@ const TEXTS = {
     title: "Kolačići",
     text: "Koristimo samo nužne tehničke kolačiće potribne za rad stranice.",
     more: "Više o kolačići",
+    privacy: "Politika privatnosti",
     accept: "Prihvati",
     decline: "Odbij",
   },
@@ -12,6 +13,7 @@ const TEXTS = {
     title: "Kolačići",
     text: "Koristimo samo nužne tehničke kolačiće potrebne za rad stranice.",
     more: "Više o kolačićima",
+    privacy: "Politika privatnosti",
     accept: "Prihvati",
     decline: "Odbij",
   },
@@ -19,6 +21,7 @@ const TEXTS = {
     title: "Cookies",
     text: "We only use essential technical cookies required for the site to work.",
     more: "More about cookies",
+    privacy: "Privacy Policy",
     accept: "Accept",
     decline: "Decline",
   },
@@ -39,7 +42,7 @@ export default function CookieBanner({ lang = "IST", navigate }) {
 
   if (!visible) return null;
 
-return (
+  return (
     <div className="cookie-banner">
       <div className="cookie-content">
         <p className="cookie-title">🍪 {txt.title}</p>
@@ -47,6 +50,10 @@ return (
           {txt.text}{" "}
           <button className="cookie-more" onClick={() => navigate("kolacici")}>
             {txt.more}
+          </button>
+          {" · "}
+          <button className="cookie-more" onClick={() => navigate("politika")}>
+            {txt.privacy}
           </button>
         </p>
       </div>

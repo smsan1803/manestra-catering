@@ -5,12 +5,12 @@ export default function Navbar({ currentPage, navigate, lang, setLang, t }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navItems = [
-    { label: t.nav.doma,       page: "home" },
-    { label: t.nav.kiSmoMi,    page: "ki-smo-mi" },
-    { label: t.nav.caNudimo,   page: "ca-nudimo" },
-    { label: t.nav.nasaTrpeza, page: "nasa-trpeza" },
+    { label: t.nav.doma,            page: "home" },
+    { label: t.nav.kiSmoMi,         page: "ki-smo-mi" },
+    { label: t.nav.caNudimo,        page: "ca-nudimo" },
+    { label: t.nav.nasaTrpeza,      page: "nasa-trpeza" },
     { label: t.nav.istarskiRecepti, page: "istarski-recepti" },
-    { label: t.nav.kontakt,    page: "kontakt" },
+    { label: t.nav.kontakt,         page: "kontakt" },
   ];
 
   const handleNavigate = (page) => {
@@ -20,7 +20,7 @@ export default function Navbar({ currentPage, navigate, lang, setLang, t }) {
 
   return (
     <nav className="navbar-custom">
-      <div className="container-fluid px-3">
+      <div className="container">
         <div className="d-flex justify-content-between align-items-center">
 
           {/* Brand */}
@@ -28,9 +28,8 @@ export default function Navbar({ currentPage, navigate, lang, setLang, t }) {
             <img
               src={logoIcon}
               alt="Maneštra Catering logo"
-              style={{ height: "45px", width: "auto" }}
+              style={{ height: "75px", width: "auto" }}
             />
-            
           </button>
 
           {/* Desktop nav */}

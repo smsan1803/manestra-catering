@@ -9,10 +9,14 @@ import NasaTrpeza from "./Pages/NasaTrpeza";
 import Kontakt from "./Pages/Kontakt";
 import IstarskiRecepti from "./Pages/IstarskiRecepti";
 import PravnaStranica from "./Pages/PravnaStranica";
+import TrpezaKategorija from "./Pages/TrpezaKategorija";
 import translations from "./Translations";
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState("home");
+  // početna stranica iz URL hasha (npr. localhost:3000/#trpeza-glavna)
+  const [currentPage, setCurrentPage] = useState(
+    window.location.hash.replace("#", "") || "home"
+  );
   const [lang, setLang] = useState("IST");
   const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -25,12 +29,22 @@ export default function App() {
       const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
       setScrollProgress(progress);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // back/forward u pregledniku
+  useEffect(() => {
+    const onHashChange = () => {
+      setCurrentPage(window.location.hash.replace("#", "") || "home");
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
+
   const navigate = (page) => {
+    window.location.hash = page === "home" ? "" : page;
     setCurrentPage(page);
     window.scrollTo(0, 0);
     setScrollProgress(0);
@@ -45,13 +59,16 @@ export default function App() {
       case "istarski-recepti": return <IstarskiRecepti t={t} lang={lang} />;
       case "politika":         return <PravnaStranica slug="politika-privatnosti" lang={lang} />;
       case "kolacici":         return <PravnaStranica slug="kolacici" lang={lang} />;
+      case "trpeza-predjela":  return <TrpezaKategorija catKey="predjela" t={t} navigate={navigate} />;
+      case "trpeza-glavna":    return <TrpezaKategorija catKey="glavna"   t={t} navigate={navigate} />;
+      case "trpeza-deserti":   return <TrpezaKategorija catKey="deserti"  t={t} navigate={navigate} />;
+      case "trpeza-pijaca":    return <TrpezaKategorija catKey="pijaca"   t={t} navigate={navigate} />;
       default:                 return <Home navigate={navigate} t={t} />;
     }
   };
 
   return (
     <div>
-      {/* Scroll progress bar */}
       <div
         style={{
           position: "fixed",
@@ -60,9 +77,9 @@ export default function App() {
           height: "1px",
           width: `${scrollProgress}%`,
           background: "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.4) 20%, #C9A84C 50%, rgba(201,168,76,0.4) 80%, transparent 100%)",
-          boxShadow: "0 0 4px rgba(201,168,76,0.4)",
+          boxShadow: "0 0 8px rgba(201,168,76,0.6), 0 0 20px rgba(201,168,76,0.3)",
           zIndex: 9999,
-          transition: "width 0.1s ease-out",
+          transition: "width 0.15s ease-out",
         }}
       />
       <Navbar currentPage={currentPage} navigate={navigate} lang={lang} setLang={setLang} t={t} />

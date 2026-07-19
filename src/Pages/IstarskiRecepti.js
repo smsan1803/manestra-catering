@@ -8,9 +8,9 @@ import {
 const API_BASE = "http://localhost:8080/wordpress/wp-json/wp/v2";
 
 const DIFF_MAP = {
-  Lako:    { IST: "Lako", HR: "Lako", EN: "Easy" },
+  Lako: { IST: "Lako", HR: "Lako", EN: "Easy" },
   Srednje: { IST: "Srednje", HR: "Srednje", EN: "Medium" },
-  Tesko:   { IST: "Teško", HR: "Teško", EN: "Hard" },
+  Tesko: { IST: "Teško", HR: "Teško", EN: "Hard" },
 };
 
 const lines = (txt) => (txt || "").split("\n").map((l) => l.trim()).filter(Boolean);
@@ -36,10 +36,19 @@ export default function IstarskiRecepti({ t, lang = "IST" }) {
   const L = lang.toLowerCase();
 
   useEffect(() => {
-    fetch(`${API_BASE}/posts?_embed&per_page=12`)
+    const start = Date.now();
+    const MIN_LOADER = 100; // loader traje najmanje 1,2 s — nema treptaja
+
+    fetch(`${API_BASE}/posts?_embed&per_page=12&categories=5`) 
       .then((res) => { if (!res.ok) throw new Error("API"); return res.json(); })
-      .then((data) => { setRecepti(data); setLoading(false); })
-      .catch(() => { setError(true); setLoading(false); });
+      .then((data) => {
+        const wait = Math.max(0, MIN_LOADER - (Date.now() - start));
+        setTimeout(() => { setRecepti(data); setLoading(false); }, wait);
+      })
+      .catch(() => {
+        const wait = Math.max(0, MIN_LOADER - (Date.now() - start));
+        setTimeout(() => { setError(true); setLoading(false); }, wait);
+      });
   }, []);
 
   // "Ne gasi ekran" — Wake Lock API
@@ -96,11 +105,17 @@ export default function IstarskiRecepti({ t, lang = "IST" }) {
 
       <section className="section-pad section-dark">
         <div className="container">
-          {loading && <p className="text-center" style={{ color: "var(--text-muted)" }}>...</p>}
-          {error && (
-            <p className="text-center" style={{ color: "var(--text-muted)", fontStyle: "italic" }}>
-              Recepti trenutno nisu dostupni.
-            </p>
+          {loading && (
+            <div className="recepti-loader">
+              <div className="pot">
+                <span className="steam"></span>
+                <span className="steam"></span>
+                <span className="steam"></span>
+                <div className="pot-lid"></div>
+                <div className="pot-body"></div>
+              </div>
+              <p>{rt.loading || "Maneštra se kuha..."}</p>
+            </div>
           )}
 
           <div className="row g-4">
