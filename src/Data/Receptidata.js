@@ -2,9 +2,9 @@
 // Slike se importaju iz src/assets/recepti/ pa ih tamo treba staviti
 // (točno pod ovim imenima datoteka, ili promijeni imena importa ispod).
 
-import cukerancici from "../assets/recepti/cukerancici.jpg";
-import manestraZBobici from "../assets/recepti/manestra_z_bobici.jpeg";
-import fuziSTartufima from "../assets/recepti/fuzi_s_tartufima.png";
+import cukerancici from "../assets/images/cukerancici.jpg";
+import manestraZBobici from "../assets/images/manestra_z_bobici.jpeg";
+import fuziSTartufima from "../assets/images/fuzi_s_tartufima.png";
 
 const receptiData = [
   {
@@ -103,7 +103,7 @@ Za namakanje pomiješaj malvaziju, rum, kruškovac i vaniliju — ohlađene cuke
   },
   {
     id: 11,
-    title: { rendered: "Maneštra z bobići" },
+    title: { rendered: "Maneštra z bobici" },
     image: manestraZBobici,
     acf: {
       vrijeme: "90 min",
