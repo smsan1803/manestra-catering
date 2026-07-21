@@ -4,8 +4,7 @@ import {
   faClock, faGaugeHigh, faCarrot, faUtensils, faChevronDown,
   faPrint, faMobileScreenButton, faUsers, faMinus, faPlus,
 } from "@fortawesome/free-solid-svg-icons";
-
-const API_BASE = "http://localhost:8080/wordpress/wp-json/wp/v2";
+import receptiData from "../data/receptiData";
 
 const DIFF_MAP = {
   Lako: { IST: "Lako", HR: "Lako", EN: "Easy" },
@@ -24,9 +23,7 @@ const scaleLine = (line, f) =>
   });
 
 export default function IstarskiRecepti({ t, lang = "IST" }) {
-  const [recepti, setRecepti] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [recepti] = useState(receptiData);
   const [openId, setOpenId] = useState(null);
   const [porcije, setPorcije] = useState({});
   const [cooking, setCooking] = useState(false);
@@ -34,22 +31,6 @@ export default function IstarskiRecepti({ t, lang = "IST" }) {
 
   const rt = t?.recepti || {};
   const L = lang.toLowerCase();
-
-  useEffect(() => {
-    const start = Date.now();
-    const MIN_LOADER = 100; // loader traje najmanje 1,2 s — nema treptaja
-
-    fetch(`${API_BASE}/posts?_embed&per_page=12&categories=5`) 
-      .then((res) => { if (!res.ok) throw new Error("API"); return res.json(); })
-      .then((data) => {
-        const wait = Math.max(0, MIN_LOADER - (Date.now() - start));
-        setTimeout(() => { setRecepti(data); setLoading(false); }, wait);
-      })
-      .catch(() => {
-        const wait = Math.max(0, MIN_LOADER - (Date.now() - start));
-        setTimeout(() => { setError(true); setLoading(false); }, wait);
-      });
-  }, []);
 
   // "Ne gasi ekran" — Wake Lock API
   useEffect(() => {
@@ -70,9 +51,7 @@ export default function IstarskiRecepti({ t, lang = "IST" }) {
     wakeLockRef.current?.release();
   }, [cooking]);
 
-  const getImage = (r) =>
-    r._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
-    "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=700&q=80";
+  const getImage = (r) => r.image;
 
   const handlePrint = (title, meta, sastojci, priprema) => {
     const w = window.open("", "_blank");
@@ -105,19 +84,6 @@ export default function IstarskiRecepti({ t, lang = "IST" }) {
 
       <section className="section-pad section-dark">
         <div className="container">
-          {loading && (
-            <div className="recepti-loader">
-              <div className="pot">
-                <span className="steam"></span>
-                <span className="steam"></span>
-                <span className="steam"></span>
-                <div className="pot-lid"></div>
-                <div className="pot-body"></div>
-              </div>
-              <p>{rt.loading || "Maneštra se kuha..."}</p>
-            </div>
-          )}
-
           <div className="row g-4">
             {recepti.map((r, i) => {
               const acf = r.acf || {};
