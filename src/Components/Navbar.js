@@ -28,7 +28,7 @@ export default function Navbar({ currentPage, navigate, lang, setLang, t }) {
             <img
               src={logoIcon}
               alt="Maneštra Catering logo"
-              style={{ height: "75px", width: "auto" }}
+              className="navbar-logo-img"
             />
           </button>
 
@@ -63,16 +63,30 @@ export default function Navbar({ currentPage, navigate, lang, setLang, t }) {
             </div>
           </div>
 
-          {/* Hamburger — samo mobile */}
-          <button
-            className="hamburger-btn"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Izbornik"
-          >
-            <span className={`hamburger-line ${menuOpen ? "open" : ""}`}></span>
-            <span className={`hamburger-line ${menuOpen ? "open" : ""}`}></span>
-            <span className={`hamburger-line ${menuOpen ? "open" : ""}`}></span>
-          </button>
+          {/* Mobile: jezik + hamburger zajedno, jezik uvijek vidljiv */}
+          <div className="mobile-top-controls d-flex align-items-center">
+            <div className="mobile-lang-top">
+              {["IST", "HR", "EN"].map((l) => (
+                <button
+                  key={l}
+                  className={`lang-btn ${lang === l ? "active" : ""}`}
+                  onClick={() => setLang(l)}
+                >
+                  {l}
+                </button>
+              ))}
+            </div>
+
+            <button
+              className="hamburger-btn"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Izbornik"
+            >
+              <span className={`hamburger-line ${menuOpen ? "open" : ""}`}></span>
+              <span className={`hamburger-line ${menuOpen ? "open" : ""}`}></span>
+              <span className={`hamburger-line ${menuOpen ? "open" : ""}`}></span>
+            </button>
+          </div>
 
         </div>
 
@@ -88,17 +102,6 @@ export default function Navbar({ currentPage, navigate, lang, setLang, t }) {
                 {item.label}
               </button>
             ))}
-            <div className="mobile-lang">
-              {["IST", "HR", "EN"].map((l) => (
-                <button
-                  key={l}
-                  className={`lang-btn ${lang === l ? "active" : ""}`}
-                  onClick={() => setLang(l)}
-                >
-                  {l}
-                </button>
-              ))}
-            </div>
           </div>
         )}
 

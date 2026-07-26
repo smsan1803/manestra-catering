@@ -84,6 +84,12 @@ export default function IstarskiRecepti({ t, lang = "IST" }) {
 
       <section className="section-pad section-dark">
         <div className="container">
+          {openId !== null && (
+            <button type="button" className="recepti-back-btn" onClick={() => setOpenId(null)}>
+              ← {rt.labelBack || "Natrag na sve recepte"}
+            </button>
+          )}
+
           <div className="row g-4">
             {recepti.map((r, i) => {
               const acf = r.acf || {};
@@ -99,9 +105,13 @@ export default function IstarskiRecepti({ t, lang = "IST" }) {
               const tezina = DIFF_MAP[acf.tezina]?.[lang] || acf.tezina || "";
               const open = openId === r.id;
               const title = r.title.rendered.replace(/<[^>]+>/g, "");
+              const anyOpen = openId !== null;
+
+              // Kad je jedan recept otvoren, ostali se sakriju, a otvoreni ide na punu širinu
+              const colClass = !anyOpen ? "col-12 col-md-6" : (open ? "col-12" : "d-none");
 
               return (
-                <div key={r.id} className="col-12 col-md-6">
+                <div key={r.id} className={colClass}>
                   <div className="recept-card" style={{ animationDelay: `${i * 0.12}s` }}>
                     <img src={getImage(r)} alt={title} />
                     <div className="recept-card-body">

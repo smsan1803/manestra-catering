@@ -1,0 +1,10 @@
+# Omogućava mod_rewrite
+RewriteEngine On
+
+# Postavi osnovnu putanju za aplikaciju
+RewriteBase /sdoblanovic/manestra-catering/
+
+# Ako datoteka ili direktorij ne postoji, preusmjeri na index.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [L]

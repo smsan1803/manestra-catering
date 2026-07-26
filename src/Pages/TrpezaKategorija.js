@@ -34,27 +34,27 @@ export default function TrpezaKategorija({ catKey, t, navigate }) {
 
       <section className="section-pad section-dark">
         <div className="container">
-          <div className="gmenu-section gmenu-karta">
-            {stavke.map((jelo, i) => (
-              <div key={i} className="gmenu-item" style={{ animationDelay: `${i * 0.08}s` }}>
-                <div className="gmenu-item-head">
-                  <h5>{jelo.name}</h5>
-                  <div className="gmenu-dots"></div>
-                  <span className="gmenu-price">{nt.naUpit}</span>
+          <div className="trpeza-layout">
+            <div className="gmenu-section gmenu-karta">
+              {stavke.map((jelo, i) => (
+                <div key={i} className="gmenu-item" style={{ animationDelay: `${i * 0.08}s` }}>
+                  <div className="gmenu-item-head">
+                    <h5>{jelo.name}</h5>
+                    <div className="gmenu-dots"></div>
+                    <span className="gmenu-price">{nt.naUpit}</span>
+                  </div>
+                  <p>{jelo.desc}</p>
                 </div>
-                <p>{jelo.desc}</p>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          <p className="gmenu-end">✦ ✦ ✦</p>
-
-          <div className="trpeza-ostale">
-            {ostale.map((k) => (
-              <button key={k.key} className="trpeza-ostale-link" onClick={() => navigate(k.page)}>
-                {nt.sekcije[k.key]} →
-              </button>
-            ))}
+            <div className="trpeza-sidebar">
+              {ostale.map((k) => (
+                <button key={k.key} className="trpeza-side-link" onClick={() => navigate(k.page)}>
+                  <span>{nt.sekcije[k.key]}</span>
+                </button>
+              ))}
+            </div>
           </div>
 
           <p className="menu-note">{nt.note}</p>
