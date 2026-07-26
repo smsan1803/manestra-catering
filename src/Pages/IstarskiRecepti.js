@@ -4,7 +4,9 @@ import {
   faClock, faGaugeHigh, faCarrot, faUtensils, faChevronDown,
   faPrint, faMobileScreenButton, faUsers, faMinus, faPlus,
 } from "@fortawesome/free-solid-svg-icons";
-import receptiData from "../data/receptiData";
+
+const API_BASE = "https://front3.edukacija.online/backend/wp-json/wp/v2";
+const CPT_SLUG = "recepti-sandra";
 
 const DIFF_MAP = {
   Lako: { IST: "Lako", HR: "Lako", EN: "Easy" },
@@ -23,7 +25,9 @@ const scaleLine = (line, f) =>
   });
 
 export default function IstarskiRecepti({ t, lang = "IST" }) {
-  const [recepti] = useState(receptiData);
+  const [recepti, setRecepti] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [openId, setOpenId] = useState(null);
   const [porcije, setPorcije] = useState({});
   const [cooking, setCooking] = useState(false);
@@ -31,6 +35,22 @@ export default function IstarskiRecepti({ t, lang = "IST" }) {
 
   const rt = t?.recepti || {};
   const L = lang.toLowerCase();
+
+  useEffect(() => {
+    const start = Date.now();
+    const MIN_LOADER = 500; // loader traje najmanje pola sekunde — nema treptaja
+
+    fetch(`${API_BASE}/${CPT_SLUG}?_embed&per_page=12`)
+      .then((res) => { if (!res.ok) throw new Error("API"); return res.json(); })
+      .then((data) => {
+        const wait = Math.max(0, MIN_LOADER - (Date.now() - start));
+        setTimeout(() => { setRecepti(data); setLoading(false); }, wait);
+      })
+      .catch(() => {
+        const wait = Math.max(0, MIN_LOADER - (Date.now() - start));
+        setTimeout(() => { setError(true); setLoading(false); }, wait);
+      });
+  }, []);
 
   // "Ne gasi ekran" — Wake Lock API
   useEffect(() => {
@@ -51,7 +71,10 @@ export default function IstarskiRecepti({ t, lang = "IST" }) {
     wakeLockRef.current?.release();
   }, [cooking]);
 
-  const getImage = (r) => r.image;
+  const getImage = (r) =>
+    r.acf?.slika_recepta ||
+    r._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+    "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=700&q=80";
 
   const handlePrint = (title, meta, sastojci, priprema) => {
     const w = window.open("", "_blank");
@@ -90,6 +113,26 @@ export default function IstarskiRecepti({ t, lang = "IST" }) {
             </button>
           )}
 
+          {loading && (
+            <div className="recepti-loader">
+              <div className="pot">
+                <span className="steam"></span>
+                <span className="steam"></span>
+                <span className="steam"></span>
+                <div className="pot-lid"></div>
+                <div className="pot-body"></div>
+              </div>
+              <p>{rt.loading || "Maneštra se kuha..."}</p>
+            </div>
+          )}
+
+          {!loading && error && (
+            <p style={{ color: "var(--text-muted)", fontStyle: "italic", textAlign: "center" }}>
+              {rt.error || "Recepti trenutno nisu dostupni. Pokušajte kasnije."}
+            </p>
+          )}
+
+          {!loading && !error && (
           <div className="row g-4">
             {recepti.map((r, i) => {
               const acf = r.acf || {};
@@ -102,7 +145,8 @@ export default function IstarskiRecepti({ t, lang = "IST" }) {
               const sastojci = lines(acf[`sastojci_${L}`] || acf.sastojci_ist)
                 .map((s) => (s.endsWith(":") ? s : scaleLine(s, factor)));
               const priprema = lines(acf[`priprema_${L}`] || acf.priprema_ist);
-              const tezina = DIFF_MAP[acf.tezina]?.[lang] || acf.tezina || "";
+              const tezinaKey = acf.tezina ? acf.tezina.charAt(0).toUpperCase() + acf.tezina.slice(1).toLowerCase() : "";
+              const tezina = DIFF_MAP[tezinaKey]?.[lang] || acf.tezina || "";
               const open = openId === r.id;
               const title = r.title.rendered.replace(/<[^>]+>/g, "");
               const anyOpen = openId !== null;
@@ -192,6 +236,7 @@ export default function IstarskiRecepti({ t, lang = "IST" }) {
               );
             })}
           </div>
+          )}
         </div>
       </section>
     </>

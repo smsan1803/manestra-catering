@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-const FORM_ID = 57; 
-const CF7_URL = `http://localhost:8080/wordpress/wp-json/contact-form-7/v1/contact-forms/${FORM_ID}/feedback`;
+const FORM_ID = 878;
+const CF7_URL = `https://front3.edukacija.online/backend/wp-json/contact-form-7/v1/contact-forms/${FORM_ID}/feedback`;
 
 export default function Kontakt({ t }) {
   const kt = t?.kontakt || {};

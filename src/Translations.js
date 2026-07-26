@@ -118,14 +118,14 @@ const translations = {
     },
     recepti: {
       title: "Istarski recepti",
-      subtitle: "Kuhajmo zajedno po receptima naših nonic",
+      subtitle: "Kuhajmo skupa po receptima naših nonic",
       labelTime: "Vrijeme",
       labelDiff: "Težina",
       labelIng: "Sastojci",
       labelSteps: "Priprema",
       labelServings: "Porcije",
-      cookingOff: "Ne gasi ekran, kuham",
-      cookingOn: "Ekran ostaje upaljen ✓",
+      cookingOff: "Ne gasi ekran, kuhan",
+      cookingOn: "Ekran ustaje upaljen ✓",
       loading: "Maneštra se kuha...",
     },
     kontakt: {
