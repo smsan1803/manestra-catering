@@ -1,4 +1,4 @@
-:root {
+:root, .theme-dark {
   --gold: #C9A84C;
   --bg-dark: #0D0D0D;
   --bg-dark2: #111111;
@@ -7,6 +7,27 @@
   --text-muted: #888;
   --border-gold: rgba(201, 168, 76, 0.3);
   --radius: 10px;   /* ⬅️ novi redak */
+  --navbar-bg: rgba(15, 15, 15, 0.75);
+  --footer-bg: #070707;
+  --card-gradient: linear-gradient(165deg, #171717 0%, #101010 100%);
+}
+
+.theme-light {
+  --gold: #A6822E;
+  --bg-dark: #FAF6EE;
+  --bg-dark2: #F2EBDC;
+  --bg-card: #FFFFFF;
+  --text-light: #241F19;
+  --text-muted: #5A5346;
+  --border-gold: rgba(166, 130, 46, 0.35);
+  --radius: 10px;
+  --navbar-bg: rgba(237, 230, 214, 0.94);
+  --footer-bg: #EFE4CD;
+  --card-gradient: linear-gradient(165deg, #FFFFFF 0%, #F7F1E1 100%);
+}
+
+body {
+  transition: background-color 0.35s ease, color 0.35s ease;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -130,10 +151,11 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(15, 15, 15, 0.75);
+  background: var(--navbar-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22), 0 2px 8px rgba(0, 0, 0, 0.15);
   padding: 0.75rem 1rem;
   transition: all 0.3s ease;
 }
@@ -212,15 +234,36 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 .mobile-top-controls { gap: 0.35rem; }
 .mobile-lang-top { display: none; align-items: center; gap: 0.2rem; }
 .mobile-lang-top .lang-btn { font-size: 0.62rem; padding: 0.15rem 0.3rem; }
+.theme-toggle-btn.mobile-theme-toggle { display: none; }
 
 .navbar-logo-img { height: 75px; width: auto; transition: height 0.25s ease; }
 
 @media (max-width: 768px) {
   .mobile-lang-top { display: flex; }
+  .theme-toggle-btn.mobile-theme-toggle { display: flex; }
   .navbar-logo-img { height: 38px; }
 }
 
 /* ========== HAMBURGER ========== */
+.theme-toggle-btn {
+  background: transparent;
+  border: 1px solid var(--border-gold);
+  color: var(--gold);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-size: 0.9rem;
+}
+.theme-toggle-btn:hover {
+  border-color: var(--gold);
+  box-shadow: 0 0 12px rgba(201, 168, 76, 0.3);
+}
+
 .hamburger-btn {
   display: none;
   flex-direction: column;
@@ -443,7 +486,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 /* ========== SECTIONS ========== */
 .section-pad { padding: 5rem 0; }
 .section-dark { background-color: var(--bg-dark); }
-.section-alt  { background-color: #0a0a0a; }
+.section-alt  { background-color: var(--bg-dark2); }
 
 /* ========== PAGE HEADER ========== */
 .page-header {
@@ -460,7 +503,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 /* ========== UIVERSE KARTICE ========== */
 .uiverse-card {
   position: relative;
-  background-color: #111;
+  background-color: var(--bg-card);
   border: 2px solid transparent;
   overflow: hidden;
   height: 100%;
@@ -493,7 +536,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
   display: flex;
   flex-direction: column;
   flex: 1;
-  background-color: #111;
+  background-color: var(--bg-card);
 }
 .uiverse-card-body h3 {
   color: var(--gold);
@@ -786,8 +829,8 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
   display: block;
 }
 .form-control-custom {
-  background: #1a1a1a;
-  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
   color: var(--text-light);
   border-radius: 0;
   padding: 0.72rem 1rem;
@@ -800,7 +843,7 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
 }
 .form-control-custom:focus { border-color: var(--gold); }
 .form-control-custom::placeholder { color: #444; }
-select.form-control-custom option { background: #1a1a1a; color: var(--text-light); }
+select.form-control-custom option { background: var(--bg-card); color: var(--text-light); }
 textarea.form-control-custom { resize: vertical; min-height: 130px; }
 
 /* ========== WP CONTENT ========== */
@@ -821,8 +864,8 @@ textarea.form-control-custom { resize: vertical; min-height: 130px; }
 
 /* ========== FOOTER ========== */
 .footer {
-  background-color: #070707;
-  border-top: 1px solid rgba(255,255,255,0.05);
+  background-color: var(--footer-bg);
+  border-top: 1px solid var(--border-gold);
   padding: 4rem 0 2rem;
 }
 .footer h4 {
@@ -873,16 +916,16 @@ textarea.form-control-custom { resize: vertical; min-height: 130px; }
 }
 
 .footer-bottom {
-  border-top: 1px solid rgba(255,255,255,0.05);
+  border-top: 1px solid var(--border-gold);
   margin-top: 3rem;
   padding-top: 1.5rem;
   text-align: center;
 }
-.footer-bottom p { font-size: 0.78rem; color: #444; }
+.footer-bottom p { font-size: 0.78rem; color: var(--text-muted); }
 
 /* ========== RECEPTI ========== */
 .recept-card {
-  background: #111;
+  background: var(--bg-card);
   border: 2px solid transparent;
   transition: border-color 0.35s ease, transform 0.3s ease;
   height: 100%;
@@ -1207,7 +1250,7 @@ textarea.form-control-custom { resize: vertical; min-height: 130px; }
   transform: translateX(-50%);
   z-index: 9998;
   width: min(720px, calc(100% - 2rem));
-  background: rgba(16, 16, 16, 0.82);
+  background: var(--navbar-bg);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(201, 168, 76, 0.25);
@@ -1281,7 +1324,7 @@ textarea.form-control-custom { resize: vertical; min-height: 130px; }
 .form-card {
   height: 100%;
   position: relative;
-  background: linear-gradient(165deg, #171717 0%, #101010 100%);
+  background: var(--card-gradient);
   border: 1px solid var(--border-gold);
   transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }

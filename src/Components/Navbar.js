@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 import logoIcon from "../assets/images/logo-full.png";
 
-export default function Navbar({ currentPage, navigate, lang, setLang, t }) {
+export default function Navbar({ currentPage, navigate, lang, setLang, t, theme, toggleTheme }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navItems = [
@@ -60,6 +62,15 @@ export default function Navbar({ currentPage, navigate, lang, setLang, t }) {
                   {l}
                 </button>
               ))}
+              <button
+                className="theme-toggle-btn"
+                onClick={toggleTheme}
+                style={{ marginLeft: "0.75rem" }}
+                aria-label="Promijeni temu"
+                title="Promijeni temu"
+              >
+                <FontAwesomeIcon icon={theme === "dark" ? faSun : faMoon} />
+              </button>
             </div>
           </div>
 
@@ -76,6 +87,15 @@ export default function Navbar({ currentPage, navigate, lang, setLang, t }) {
                 </button>
               ))}
             </div>
+
+            <button
+              className="theme-toggle-btn mobile-theme-toggle"
+              onClick={toggleTheme}
+              aria-label="Promijeni temu"
+              title="Promijeni temu"
+            >
+              <FontAwesomeIcon icon={theme === "dark" ? faSun : faMoon} />
+            </button>
 
             <button
               className="hamburger-btn"

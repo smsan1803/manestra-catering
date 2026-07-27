@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const API_BASE = "http://localhost:8080/wordpress/wp-json/wp/v2";
+const API_BASE = "https://front3.edukacija.online/backend/wp-json/wp/v2";
 
 const lines = (txt) => (txt || "").split("\n").map((l) => l.trim()).filter(Boolean);
 

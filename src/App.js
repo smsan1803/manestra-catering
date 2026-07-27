@@ -19,6 +19,13 @@ export default function App() {
   );
   const [lang, setLang] = useState("IST");
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "dark");
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
 
   const t = translations[lang] || translations.IST;
 
@@ -68,7 +75,7 @@ export default function App() {
   };
 
   return (
-    <div>
+    <div className={`theme-${theme}`}>
       <div
         style={{
           position: "fixed",
@@ -82,7 +89,7 @@ export default function App() {
           transition: "width 0.15s ease-out",
         }}
       />
-      <Navbar currentPage={currentPage} navigate={navigate} lang={lang} setLang={setLang} t={t} />
+      <Navbar currentPage={currentPage} navigate={navigate} lang={lang} setLang={setLang} t={t} theme={theme} toggleTheme={toggleTheme} />
       {renderPage()}
       <Footer navigate={navigate} t={t} lang={lang} />
       <CookieBanner lang={lang} navigate={navigate} />
