@@ -81,12 +81,11 @@ export default function App() {
           position: "fixed",
           top: 0,
           left: 0,
-          height: "1px",
+          height: "5px",
           width: `${scrollProgress}%`,
-          background: "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.4) 20%, #C9A84C 50%, rgba(201,168,76,0.4) 80%, transparent 100%)",
-          boxShadow: "0 0 8px rgba(201,168,76,0.6), 0 0 20px rgba(201,168,76,0.3)",
+          background: "var(--gold)",
           zIndex: 9999,
-          transition: "width 0.15s ease-out",
+          transition: "width 0.3s ease-out",
         }}
       />
       <Navbar currentPage={currentPage} navigate={navigate} lang={lang} setLang={setLang} t={t} theme={theme} toggleTheme={toggleTheme} />

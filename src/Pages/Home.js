@@ -2,14 +2,15 @@ import { useState, useEffect } from "react";
 import slide1 from "../assets/images/vino_pogled.png";
 import slide2 from "../assets/images/tartufi.jpg";
 import slide3 from "../assets/images/istarska_supa.jpg";
-import slide4 from "../assets/images/istra_vinograd.jpeg";
+import slide4 from "../assets/images/kobasice_kanica_na_grdelah.png";
 import slide5 from "../assets/images/kamena_kuca_tradicija.jpg";
+import kuhanjeImg from "../assets/images/kuhanje.jpeg";
 
 const heroSlides = [
   { img: slide1, alt: "Vino-pogled" },
   { img: slide2, alt: "Tartufi" },
   { img: slide3, alt: "Istarska supa" },
-  { img: slide4, alt: "Istra vinograd" },
+  { img: slide4, alt: "Kobasice kanica" },
   { img: slide5, alt: "Kamena kuća tradicija" },
 ];
 
@@ -151,7 +152,7 @@ export default function Home({ navigate, t }) {
             <div className="col-md-5">
               <div className="story-img-wrapper">
                 <img
-                  src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=700&q=80"
+                  src={kuhanjeImg}
                   alt="Kuhinja"
                 />
               </div>

@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLeaf, faUtensils, faStar } from "@fortawesome/free-solid-svg-icons";
+import slide5 from "../assets/images/kuhanje.jpeg";
 
 export default function KiSmoMi({ navigate, t }) {
   return (
@@ -41,7 +42,7 @@ export default function KiSmoMi({ navigate, t }) {
             <div className="col-md-6">
               <div className="story-img-wrapper sm">
                 <img
-                  src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=700&q=80"
+                  src={slide5}
                   alt="Kuhinja"
                 />
               </div>
